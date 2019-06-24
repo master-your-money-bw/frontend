@@ -5,7 +5,7 @@ import { login } from '../actions';
 class Login extends React.Component {
     state = {
         credentials: {
-            username: '', // technically username
+            username: '',
             password: ''
         }
     }
@@ -19,9 +19,8 @@ class Login extends React.Component {
 
     onSubmitLogin = e => {
         e.preventDefault();
-        // push to backend to validate if user is in system
         this.props.login(this.state.credentials)
-        this.props.history.push("/onboarding")
+            .then(res => this.props.history.push("/onboarding"))
     }
 
     render() {

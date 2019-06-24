@@ -24,7 +24,7 @@ class OnboardingForm extends React.Component {
   onSubmitLogin = e => {
     e.preventDefault();
     // push to backend to validate if user is in system
-    this.props.updateProfile(this.state.profile, )
+    this.props.updateProfile(this.state.profile)
     this.props.history.push("/dashboard")
 }
 

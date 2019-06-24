@@ -17,7 +17,7 @@ export const UPDATE_PROFILE_FAIL = 'UPDATE_PROFILE_FAIL';
 // create actions
 export const login = user => dispatch => {
     dispatch({ type: LOGIN_START });
-    axios.post("https://bw-money-backend.herokuapp.com/oauth/token", `grant_type=password&username=${user.username}&password=${user.password}`, {
+    return axios.post("https://bw-money-backend.herokuapp.com/oauth/token", `grant_type=password&username=${user.username}&password=${user.password}`, {
         headers: {
             Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -37,23 +37,21 @@ export const fetchUser = token => dispatch => {
     axiosWithAuth()
         .get("/users/currentuser")
         .then(res => {
-            console.log(res)
             dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            console.log(err)
             dispatch({ type: FETCH_USER_DATA_FAIL, payload: err.response.error_description })
         })
 }
 
-export const updateProfile = (profileData) => dispatch => {
+export const updateProfile = profile => dispatch => {
     dispatch({ type: UPDATE_PROFILE_START });
     axiosWithAuth()
-        .put("/users/currentuser", profileData)
+        .put("/users/currentuser", profile)
         .then(res => {
-            console.log(res)
+            dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            console.log(err)
+            dispatch({ type: UPDATE_PROFILE_FAIL, payload: err.response.data.error_description })
         })
 }
