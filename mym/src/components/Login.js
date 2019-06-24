@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { login } from '../actions';
 
 class Login extends React.Component {
     state = {
         credentials: {
-            email: '',
+            username: '', // technically username
             password: ''
         }
     }
@@ -19,6 +20,7 @@ class Login extends React.Component {
     onSubmitLogin = e => {
         e.preventDefault();
         // push to backend to validate if user is in system
+        this.props.login(this.state.credentials)
         this.props.history.push("/onboarding")
     }
 
@@ -27,8 +29,8 @@ class Login extends React.Component {
             <form onSubmit={this.onSubmitLogin}>
                 <h2>Sign In</h2>
                 <div>
-                    <p>Email</p>
-                    <input name="email" value={this.state.credentials.email} onChange={this.onInputChange} type="email" required autoComplete="username"/>
+                    <p>Username</p>
+                    <input name="username" value={this.state.credentials.username} onChange={this.onInputChange} type="text" required autoComplete="username"/>
                 </div>
                 <div>
                     <p>Password</p>
@@ -40,4 +42,4 @@ class Login extends React.Component {
     }
 }
 
-export default connect(null, {})(Login);
+export default connect(null, { login })(Login);

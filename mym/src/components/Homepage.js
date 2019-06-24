@@ -5,7 +5,7 @@ const Homepage = () => {
     return (
     <div>
         <Link to="/login">Login</Link>
-        Placeholder
+        <Link to="/register">Register</Link>
     </div>
     );
 }
