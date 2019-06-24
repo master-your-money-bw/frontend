@@ -19,11 +19,10 @@ class Login extends React.Component {
     onSubmitLogin = e => {
         e.preventDefault();
         // push to backend to validate if user is in system
-        // this.props.history.push("/dashboard")
+        this.props.history.push("/onboarding")
     }
 
     render() {
-        console.log(this.props)
         return (
             <form onSubmit={this.onSubmitLogin}>
                 <h2>Sign In</h2>
