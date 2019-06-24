@@ -14,7 +14,8 @@ import PrivateRoute from './components/PrivateRoute';
 function App(props) {
   return (
     <div className="App">
-    <Header />
+      checking
+      <Header />
       <Route path="/" exact component={Homepage}/> {/* will be removed */}
       <Route path="/login" component={Login}/>
       {!props.loggedIn && <Route path="/register" component ={Register}/>}
