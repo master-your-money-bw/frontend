@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { updateProfile } from '../actions';
 
 class OnboardingForm extends React.Component {
   state = {
@@ -23,6 +24,7 @@ class OnboardingForm extends React.Component {
   onSubmitLogin = e => {
     e.preventDefault();
     // push to backend to validate if user is in system
+    this.props.updateProfile(this.state.profile, )
     this.props.history.push("/dashboard")
 }
 
@@ -52,4 +54,4 @@ class OnboardingForm extends React.Component {
   }
 }
 
-export default connect(null, {})(OnboardingForm);
+export default connect(null, { updateProfile })(OnboardingForm);

@@ -1,3 +1,4 @@
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import axios from 'axios';
 
 // set action types
@@ -8,6 +9,10 @@ export const LOGIN_FAIL = "LOGIN_FAIL"
 export const FETCH_USER_DATA_START = 'FETCH_USER_DATA_START';
 export const FETCH_USER_DATA_SUCCESS = 'FETCH_USER_DATA_SUCCESS';
 export const FETCH_USER_DATA_FAIL = 'FETCH_USER_DATA_FAIL';
+
+export const UPDATE_PROFILE_START = 'UPDATE_PROFILE_START';
+export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
+export const UPDATE_PROFILE_FAIL = 'UPDATE_PROFILE_FAIL';
 
 // create actions
 export const login = user => dispatch => {
@@ -29,11 +34,8 @@ export const login = user => dispatch => {
 
 export const fetchUser = token => dispatch => {
     dispatch({ type: FETCH_USER_DATA_START });
-    axios.get("https://bw-money-backend.herokuapp.com/users/currentuser", {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+    axiosWithAuth()
+        .get("/users/currentuser")
         .then(res => {
             console.log(res)
             dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data })
@@ -41,5 +43,17 @@ export const fetchUser = token => dispatch => {
         .catch(err => {
             console.log(err)
             dispatch({ type: FETCH_USER_DATA_FAIL, payload: err.response.error_description })
+        })
+}
+
+export const updateProfile = (profileData) => dispatch => {
+    dispatch({ type: UPDATE_PROFILE_START });
+    axiosWithAuth()
+        .put("/users/currentuser", profileData)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
         })
 }
