@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+// import './App.css';
 import Login from './components/Login';
 import { Route } from 'react-router-dom';
 import OnboardingForm from './components/OnboardingForm';
@@ -12,7 +12,7 @@ import Homepage from './components/Homepage';
 
 function App(props) {
   return (
-    <div className="App">
+    <div className="container">
       <Header />
       <Route path="/" component={Homepage}/>
       <Route path="/login" component={Login}/>

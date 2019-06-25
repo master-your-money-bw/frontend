@@ -33,20 +33,30 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.onSubmitLogin}>
-                    <h2>Sign In</h2>
-                    <div>
-                        <p>Username</p>
-                        <input name="username" value={this.state.credentials.username} onChange={this.onInputChange} type="text" required autoComplete="username"/>
+            <div className="row">
+                <div className="col s6 offset-s3">
+                    <div className="card white">
+                        <div className="card-content">
+                            <span className="card-title">Sign In</span>
+                            <br />
+                            <form onSubmit={this.onSubmitLogin}>
+                                <div className="input-field">
+                                    <input name="username" value={this.state.credentials.username} onChange={this.onInputChange} type="text" required autoComplete="username" id="username" className="validate"/>
+                                    <label for="username" className="active">Username</label>
+                                </div>
+                                <div className="input-field">
+                                    <input name="password" value={this.state.credentials.password} onChange={this.onInputChange} type="password" required autoComplete="current-password"/>
+                                    <label for="password" className="active">Password</label>
+                                </div>
+                                <button className="btn waves-effect waves-light">Sign In
+                                    <i className="material-icons right">send</i>
+                                </button>
+                            </form>
+                            <br />
+                            <Link to="/register">New to Master Your Money? Create an account.</Link>
+                        </div>
                     </div>
-                    <div>
-                        <p>Password</p>
-                        <input name="password" value={this.state.credentials.password} onChange={this.onInputChange} type="password" required autoComplete="current-password"/>
-                    </div>
-                    <button>Sign In</button>
-                </form>
-                <Link to="/register">New to Master Your Money? Create an account.</Link>
+                </div>
             </div>
         )
     }
