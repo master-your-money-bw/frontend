@@ -42,11 +42,11 @@ class Login extends React.Component {
                             <form onSubmit={this.onSubmitLogin}>
                                 <div className="input-field">
                                     <input name="username" value={this.state.credentials.username} onChange={this.onInputChange} type="text" required autoComplete="username" id="username" className="validate"/>
-                                    <label for="username" className="active">Username</label>
+                                    <label htmlFor="username" className="active">Username</label>
                                 </div>
                                 <div className="input-field">
                                     <input name="password" value={this.state.credentials.password} onChange={this.onInputChange} type="password" required autoComplete="current-password"/>
-                                    <label for="password" className="active">Password</label>
+                                    <label htmlFor="password" className="active">Password</label>
                                 </div>
                                 <button className="btn waves-effect waves-light">Sign In
                                     <i className="material-icons right">send</i>

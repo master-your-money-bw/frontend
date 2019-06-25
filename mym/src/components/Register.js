@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createUser, login } from "../actions";
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
   state = {
@@ -8,8 +9,18 @@ class Register extends React.Component {
       username: "",
       password: "",
       verifyPassword: ""
-    }
+    },
+    error: ''
   };
+
+  componentDidMount() {
+      this.setState({ error: '' })
+  }
+
+  componentWillUnmount() {
+      this.setState({ error: '' })
+  }
+
   onInputChange = e => {
     this.setState({
       credentials: {
@@ -24,7 +35,7 @@ class Register extends React.Component {
     this.props
       .createUser(this.state.credentials)
       .then(res =>
-        !this.props.error ? this.props.login(this.state.credentials) : null
+        !this.props.error ? this.props.login(this.state.credentials) : this.setState({ error: this.props.error })
       )
       .then(res => {
         !this.props.error && this.props.history.push("/onboarding");
@@ -38,7 +49,7 @@ class Register extends React.Component {
           <div className="card white">
             <div className="card-content">
               <span className="card-title">Register</span>
-              <br />
+              {!this.state.error ? <div><br /><br /></div> : <span style={{ color: "red" }}>{this.state.error}</span>}
               <form onSubmit={this.onSubmitLogin}>
                 <div className="input-field">
                   <input
@@ -49,7 +60,7 @@ class Register extends React.Component {
                     autoComplete="username"
                     id="username"
                   />
-                  <label for="username" className="active">
+                  <label htmlFor="username" className="active">
                     Username:
                   </label>
                 </div>
@@ -62,7 +73,7 @@ class Register extends React.Component {
                     autoComplete="new-password"
                     id="password"
                   />
-                  <label for="password" className="active">
+                  <label htmlFor="password" className="active">
                     Password:{" "}
                   </label>
                 </div>
@@ -75,14 +86,14 @@ class Register extends React.Component {
                     autoComplete="none"
                     id="verifyPassword"
                   />
-                  <label for="verifyPassword" className="active">
+                  <label htmlFor="verifyPassword" className="active">
                     Retype Password:{" "}
                   </label>
                   {this.state.credentials.password !==
                   this.state.credentials.verifyPassword ? (
-                    <p>Passwords don't match</p>
+                    <span style={{ color: "red" }}>Passwords don't match</span>
                   ) : (
-                    ""
+                    <div style={{ height: "21px" }}></div>
                   )}
                 </div>
                 <button className="btn waves-effect waves-light">
@@ -90,7 +101,8 @@ class Register extends React.Component {
                   <i className="material-icons right">send</i>
                 </button>
               </form>
-              {this.props.error && <p>{this.props.error}</p>}
+              <br />
+              <Link to="/login"><span>Already have an account? Click here.</span></Link>
             </div>
           </div>
         </div>
