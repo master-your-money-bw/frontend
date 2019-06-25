@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createUser, login } from '../actions';
 
 class Register extends React.Component {
     state = {
         credentials: {
-            name: '',
-            email: '',
+            username: '',
             password: '',
             verifyPassword: ''
         }
@@ -18,30 +19,42 @@ class Register extends React.Component {
 
     onSubmitLogin = e => {
         e.preventDefault();
-        // push to backend to validate if user is in system
-        this.props.history.push("/onboarding")
+        this.props.createUser(this.state.credentials)
+            .then(res => 
+                !this.props.error ? this.props.login(this.state.credentials) : null
+            )
+            .then(res => {
+                !this.props.error && this.props.history.push("/onboarding")
+            })
     }
 
     render() {
         return (
-            <form>
-            <h2>Register</h2>
-                <div>
-                    Name: <input name="" value={this.state.credentials.name} on/>
-                </div>
-                <div>
-                    Email: <input name="" value={this.state.credentials.email} on/>
-                </div>
-                <div>
-                    Password: <input name="" value={this.state.credentials.password} on/>
-                </div>
-                <div>
-                    Retype Password: <input name="" value={this.state.credentials.verifyPassword} on/>
-                </div>
-                <button>Register</button>
-            </form>
+            <div>
+                <form onSubmit={this.onSubmitLogin}>
+                    <h2>Register</h2>
+                    <div>
+                        Username: <input name="username" value={this.state.credentials.name} onChange={this.onInputChange} type="text" autoComplete="username"/>
+                    </div>
+                    <div>
+                        Password: <input name="password" value={this.state.credentials.password} onChange={this.onInputChange} type="password" autoComplete="new-password"/>
+                    </div>
+                    <div>
+                        Retype Password: <input name="verifyPassword" value={this.state.credentials.verifyPassword} onChange={this.onInputChange} type="password" autoComplete="none"/>
+                        {this.state.credentials.password !== this.state.credentials.verifyPassword ? <p>Passwords don't match</p> : ''}
+                    </div>
+                    <button>Register</button>
+                </form>
+                {this.props.error && <p>{this.props.error}</p>}
+            </div>
         )
     }
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+    return {
+        error: state.error
+    }
+}
+
+export default connect(mapStateToProps, { createUser, login })(Register);

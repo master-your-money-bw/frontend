@@ -14,6 +14,10 @@ export const UPDATE_PROFILE_START = 'UPDATE_PROFILE_START';
 export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
 export const UPDATE_PROFILE_FAIL = 'UPDATE_PROFILE_FAIL';
 
+export const CREATE_USER_START = 'CREATE_USER_START';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAIL = 'CREATE_USER_FAIL';
+
 // create actions
 export const login = user => dispatch => {
     dispatch({ type: LOGIN_START });
@@ -34,7 +38,7 @@ export const login = user => dispatch => {
 
 export const fetchUser = token => dispatch => {
     dispatch({ type: FETCH_USER_DATA_START });
-    axiosWithAuth()
+    return axiosWithAuth()
         .get("/users/currentuser")
         .then(res => {
             dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data })
@@ -53,5 +57,15 @@ export const updateProfile = profile => dispatch => {
         })
         .catch(err => {
             dispatch({ type: UPDATE_PROFILE_FAIL, payload: err.response.data.error_description })
+        })
+}
+
+export const createUser = user => dispatch => {
+    dispatch({ type: CREATE_USER_START });
+    return axios.post("https://bw-money-backend.herokuapp.com/createnewuser", user)
+        .then(res => dispatch({ type: CREATE_USER_START }))
+        .catch(err => {
+            console.log(err)
+            dispatch({ type: CREATE_USER_FAIL, payload: "User cannot be created. Please try another Username." })
         })
 }

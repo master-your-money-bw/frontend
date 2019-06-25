@@ -26,7 +26,6 @@ class AddExpense extends React.Component {
     }
 
     render() {
-        console.log(this.state.expense)
         return (
             <form>
                 <h3>Add Expense</h3>

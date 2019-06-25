@@ -1,22 +1,18 @@
 import React from 'react';
-import ExpenseTracker from './ExpenseTracker';
 import { Link } from 'react-router-dom';
 import { fetchUser } from '../actions';
 import { connect } from 'react-redux';
+import Logout from './Logout';
 
 class Dashboard extends React.Component {
-    componentDidMount() {
-        if (localStorage.getItem('token')) this.props.fetchUser(this.props.token);
-    }
-
     render() {
         return (
             <div>
+                <Logout />
                 <h3>Overview</h3>
                 <ul>
-                    <Link to="/track"><li>Expense Tracker</li></Link>
+                    <Link to="/dashbaord/track"><li>Expense Tracker</li></Link>
                     <li>On Track?</li>
-                    <ExpenseTracker />
                 </ul>
             </div>
         )
