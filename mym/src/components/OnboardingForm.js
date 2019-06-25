@@ -21,16 +21,15 @@ class OnboardingForm extends React.Component {
     });
   };
 
-  onSubmitLogin = e => {
+  onSubmitForm = e => {
     e.preventDefault();
-    // push to backend to validate if user is in system
     this.props.updateProfile(this.state.profile)
     this.props.history.push("/dashboard")
-}
+  }
 
   render() {
     return (
-      <form onSubmit={this.onSubmitLogin}>
+      <form onSubmit={this.onSubmitForm}>
         <h2>Profile</h2>
         <div>
           <p>Age range:</p>
@@ -54,4 +53,12 @@ class OnboardingForm extends React.Component {
   }
 }
 
-export default connect(null, { updateProfile })(OnboardingForm);
+const mapStateToProps = (state) => {
+  return {
+    user: {
+      age: state.user.age
+    }
+  }
+}
+
+export default connect(mapStateToProps, { updateProfile })(OnboardingForm);

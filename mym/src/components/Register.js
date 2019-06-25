@@ -1,47 +1,123 @@
-import React from 'react';
+import React from "react";
+import { connect } from "react-redux";
+import { createUser, login } from "../actions";
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
-    state = {
-        credentials: {
-            name: '',
-            email: '',
-            password: '',
-            verifyPassword: ''
-        }
-    }
-    onInputChange = e => {
-        this.setState({ credentials: {
-            ...this.state.credentials,
-            [e.target.name]: e.target.value
-        }})
-    }
+  state = {
+    credentials: {
+      username: "",
+      password: "",
+      verifyPassword: ""
+    },
+    error: ''
+  };
 
-    onSubmitLogin = e => {
-        e.preventDefault();
-        // push to backend to validate if user is in system
-        this.props.history.push("/onboarding")
-    }
+  componentDidMount() {
+      this.setState({ error: '' })
+  }
 
-    render() {
-        return (
-            <form>
-            <h2>Register</h2>
-                <div>
-                    Name: <input name="" value={this.state.credentials.name} on/>
+  componentWillUnmount() {
+      this.setState({ error: '' })
+  }
+
+  onInputChange = e => {
+    this.setState({
+      credentials: {
+        ...this.state.credentials,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  onSubmitLogin = e => {
+    e.preventDefault();
+    this.props
+      .createUser(this.state.credentials)
+      .then(res =>
+        !this.props.error ? this.props.login(this.state.credentials) : this.setState({ error: this.props.error })
+      )
+      .then(res => {
+        !this.props.error && this.props.history.push("/onboarding");
+      });
+  };
+
+  render() {
+    return (
+      <div className="row">
+        <div className="col s6 offset-s3">
+          <div className="card white">
+            <div className="card-content">
+              <span className="card-title">Register</span>
+              {!this.state.error ? <div><br /><br /></div> : <span style={{ color: "red" }}>{this.state.error}</span>}
+              <form onSubmit={this.onSubmitLogin}>
+                <div className="input-field">
+                  <input
+                    name="username"
+                    value={this.state.credentials.name}
+                    onChange={this.onInputChange}
+                    type="text"
+                    autoComplete="username"
+                    id="username"
+                  />
+                  <label htmlFor="username" className="active">
+                    Username:
+                  </label>
                 </div>
-                <div>
-                    Email: <input name="" value={this.state.credentials.email} on/>
+                <div className="input-field">
+                  <input
+                    name="password"
+                    value={this.state.credentials.password}
+                    onChange={this.onInputChange}
+                    type="password"
+                    autoComplete="new-password"
+                    id="password"
+                  />
+                  <label htmlFor="password" className="active">
+                    Password:{" "}
+                  </label>
                 </div>
-                <div>
-                    Password: <input name="" value={this.state.credentials.password} on/>
+                <div className="input-field">
+                  <input
+                    name="verifyPassword"
+                    value={this.state.credentials.verifyPassword}
+                    onChange={this.onInputChange}
+                    type="password"
+                    autoComplete="none"
+                    id="verifyPassword"
+                  />
+                  <label htmlFor="verifyPassword" className="active">
+                    Retype Password:{" "}
+                  </label>
+                  {this.state.credentials.password !==
+                  this.state.credentials.verifyPassword ? (
+                    <span style={{ color: "red" }}>Passwords don't match</span>
+                  ) : (
+                    <div style={{ height: "21px" }}></div>
+                  )}
                 </div>
-                <div>
-                    Retype Password: <input name="" value={this.state.credentials.verifyPassword} on/>
-                </div>
-                <button>Register</button>
-            </form>
-        )
-    }
+                <button className="btn waves-effect waves-light">
+                  Register
+                  <i className="material-icons right">send</i>
+                </button>
+              </form>
+              <br />
+              <Link to="/login"><span>Already have an account? Click here.</span></Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Register;
+const mapStateToProps = state => {
+  return {
+    error: state.error
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { createUser, login }
+)(Register);
