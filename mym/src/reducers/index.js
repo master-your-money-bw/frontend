@@ -3,7 +3,11 @@ import {
     LOGIN_START, LOGIN_SUCCESS, LOGIN_FAIL,
     FETCH_USER_DATA_START, FETCH_USER_DATA_SUCCESS, FETCH_USER_DATA_FAIL,
     UPDATE_PROFILE_START, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL,
-    CREATE_USER_START, CREATE_USER_SUCCESS, CREATE_USER_FAIL
+    CREATE_USER_START, CREATE_USER_SUCCESS, CREATE_USER_FAIL,
+    ADD_EXPENSE_START, ADD_EXPENSE_SUCCESS, ADD_EXPENSE_FAIL,
+    UPDATE_EXPENSE_START, UPDATE_EXPENSE_SUCCESS, UPDATE_EXPENSE_FAIL,
+    DELETE_EXPENSE_START, DELETE_EXPENSE_SUCCESS, DELETE_EXPENSE_FAIL,
+    GET_USER_EXPENSES_START, GET_USER_EXPENSES_SUCCESS, GET_USER_EXPENSES_FAIL
 } from '../actions';
 
 const initializeState = {
@@ -13,7 +17,9 @@ const initializeState = {
     fetchingProfile: false,
     updatingProfile: false,
     token: '',
-    creatingUser: false
+    creatingUser: false,
+    getUserExpenses: false,
+    expenses: []
 }
 
 export default function(state = initializeState, action ) {
@@ -92,6 +98,25 @@ export default function(state = initializeState, action ) {
             return {
                 ...state,
                 creatingUser: false,
+                error: action.payload
+            }
+        case GET_USER_EXPENSES_START:
+            return {
+                ...state,
+                getUserExpenses: true,
+                error: ''
+            }
+        case GET_USER_EXPENSES_SUCCESS:
+            return {
+                ...state,
+                getUserExpenses: false,
+                expenses: action.payload,
+                error: ''
+            }
+        case GET_USER_EXPENSES_FAIL:
+            return {
+                ...state,
+                getUserExpenses: false,
                 error: action.payload
             }
         default: 

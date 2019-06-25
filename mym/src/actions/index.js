@@ -18,6 +18,22 @@ export const CREATE_USER_START = 'CREATE_USER_START';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAIL = 'CREATE_USER_FAIL';
 
+export const ADD_EXPENSE_START = 'ADD_EXPENSE_START';
+export const ADD_EXPENSE_SUCCESS = 'ADD_EXPENSE_SUCCESS';
+export const ADD_EXPENSE_FAIL = 'ADD_EXPENSE_FAIL';
+
+export const UPDATE_EXPENSE_START = 'UPDATE_EXPENSE_START';
+export const UPDATE_EXPENSE_SUCCESS = 'UPDATE_EXPENSE_SUCCESS';
+export const UPDATE_EXPENSE_FAIL = 'UPDATE_EXPENSE_FAIL';
+
+export const DELETE_EXPENSE_START = 'DELETE_EXPENSE_START';
+export const DELETE_EXPENSE_SUCCESS = 'DELETE_EXPENSE_SUCCESS';
+export const DELETE_EXPENSE_FAIL = 'DELETE_EXPENSE_FAIL';
+
+export const GET_USER_EXPENSES_START = 'GET_USER_EXPENSES_START';
+export const GET_USER_EXPENSES_SUCCESS = 'GET_USER_EXPENSES_SUCCESS';
+export const GET_USER_EXPENSES_FAIL = 'GET_USER_EXPENSES_FAIL';
+
 // create actions
 export const login = user => dispatch => {
     dispatch({ type: LOGIN_START });
@@ -65,7 +81,52 @@ export const createUser = user => dispatch => {
     return axios.post("https://bw-money-backend.herokuapp.com/createnewuser", user)
         .then(res => dispatch({ type: CREATE_USER_START }))
         .catch(err => {
-            console.log(err)
             dispatch({ type: CREATE_USER_FAIL, payload: "User cannot be created. Please try another Username." })
         })
 }
+
+export const getUserExpenses = () => dispatch => {
+    dispatch({ type: GET_USER_EXPENSES_START });
+    axiosWithAuth()
+        .get("/expenses/all")
+        .then(res =>{
+            dispatch({ type: GET_USER_EXPENSES_SUCCESS, payload: res.data })
+        })
+        .catch(err => dispatch({ type: GET_USER_EXPENSES_FAIL, payload: err}))
+}
+
+export const addExpense = expense => dispatch => {
+    dispatch({ type: ADD_EXPENSE_START })
+    axiosWithAuth()
+        .post("/expenses/new", expense)
+        .then(res => {
+            dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+        })
+        .catch(err => {
+            dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
+        })
+}
+
+export const updateExpense = expense => dispatch => {
+    dispatch({ type: UPDATE_EXPENSE_START })
+    axiosWithAuth()
+        .put(`/expenses/update/${expense.id}`, expense)
+        .then(res => {
+            dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+        })
+        .catch(err => {
+            dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
+        })
+}
+
+// export const deleteExpense = expense => dispatch => {
+//     dispatch({ type: DELETE_EXPENSE_START })
+//     axiosWithAuth()
+//         .post("/expenses/new")
+//         .then(res => {
+//             dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+//         })
+//         .catch(err => {
+//             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
+//         })
+// }
