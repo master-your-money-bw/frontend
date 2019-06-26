@@ -65,12 +65,14 @@ class Expense extends React.Component {
                                 <p>Category: {this.props.expense.category}</p>
                                 <p>Amount: {this.props.expense.amount}</p>
                             </div>
-                            <div className="col">
-                                <button onClick={this.toggleUpdate}>update</button>
-                            </div>
-                            <div className="col">
-                                <button onClick={this.onDeleteExpense}>delete</button>
-                            </div>
+                            {!this.props.hideButton &&(<div>
+                                <div className="col">
+                                    <button onClick={this.toggleUpdate}>update</button>
+                                </div>
+                                <div className="col">
+                                    <button onClick={this.onDeleteExpense}>delete</button>
+                                </div>
+                            </div>)}
                         </div>
                         )}
                     </div>

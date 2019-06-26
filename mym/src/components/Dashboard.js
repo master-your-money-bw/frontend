@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Logout from './Logout';
 import Profile from './Profile';
 import OnTrack from './OnTrack';
+import LatestExpenses from './LatestExpenses';
 
 class Dashboard extends React.Component {
     componentDidMount() {
@@ -18,6 +19,7 @@ class Dashboard extends React.Component {
                 <h3>Overview</h3>
                 <ul>
                     <Link to="/dashboard/track"><li>Expense Tracker</li></Link>
+                    <LatestExpenses />
                     <OnTrack />
                 </ul>
                 <Profile />
