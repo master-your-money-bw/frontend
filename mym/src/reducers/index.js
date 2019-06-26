@@ -165,7 +165,6 @@ export default function(state = initializeState, action) {
     case ADD_EXPENSE_SUCCESS:
       return {
         ...state,
-        expenses: action.payload,
         error: "",
         addingUserExpenses: false
       };

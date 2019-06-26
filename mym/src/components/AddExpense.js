@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addExpense } from "../actions";
+import { addExpense, getUserExpenses } from "../actions";
 
 class AddExpense extends React.Component {
   state = {
@@ -25,7 +25,14 @@ class AddExpense extends React.Component {
     e.preventDefault();
     // add to backend data
     // exit out of modal
-    this.props.addExpense(this.state.expense);
+    this.props.addExpense(this.state.expense)
+        .then(res => this.props.getUserExpenses())
+        .then(res => this.setState({ expense: {
+            date: '',
+            expensename: '',
+            amount: '',
+            category: ''
+        }}))
   };
 
   render() {
@@ -101,5 +108,5 @@ class AddExpense extends React.Component {
 
 export default connect(
   null,
-  { addExpense }
+  { addExpense, getUserExpenses }
 )(AddExpense);

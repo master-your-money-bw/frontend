@@ -87,7 +87,7 @@ export const createUser = user => dispatch => {
 
 export const getUserExpenses = () => dispatch => {
     dispatch({ type: GET_USER_EXPENSES_START });
-    axiosWithAuth()
+    return axiosWithAuth()
         .get("/expenses/all")
         .then(res =>{
             dispatch({ type: GET_USER_EXPENSES_SUCCESS, payload: res.data })
@@ -97,10 +97,10 @@ export const getUserExpenses = () => dispatch => {
 
 export const addExpense = expense => dispatch => {
     dispatch({ type: ADD_EXPENSE_START })
-    axiosWithAuth()
+    return axiosWithAuth()
         .post("/expenses/new", expense)
         .then(res => {
-            dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+            dispatch({ type: ADD_EXPENSE_SUCCESS })
         })
         .catch(err => {
             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
