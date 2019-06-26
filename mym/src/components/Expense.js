@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateExpense, getUserExpenses } from '../actions';
+import { updateExpense, getUserExpenses, deleteExpense } from '../actions';
 
 class Expense extends React.Component {
     state = {
@@ -30,6 +30,11 @@ class Expense extends React.Component {
         this.props.updateExpense(this.state.newExpense)
             .then(res => this.props.getUserExpenses())
             .then(res => this.setState(prevState => ({ updating: !prevState.updating })))
+    }
+
+    onDeleteExpense = () => {
+        this.props.deleteExpense(this.props.expense)
+            .then(res => this.props.getUserExpenses())
     }
 
     render() {
@@ -64,7 +69,7 @@ class Expense extends React.Component {
                                 <button onClick={this.toggleUpdate}>update</button>
                             </div>
                             <div className="col">
-                                <button>delete</button>
+                                <button onClick={this.onDeleteExpense}>delete</button>
                             </div>
                         </div>
                         )}
@@ -75,4 +80,4 @@ class Expense extends React.Component {
     }
 }
 
-export default connect(null, { updateExpense, getUserExpenses })(Expense);
+export default connect(null, { updateExpense, getUserExpenses, deleteExpense })(Expense);

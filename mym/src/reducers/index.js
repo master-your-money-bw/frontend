@@ -37,7 +37,8 @@ const initializeState = {
   getUserExpenses: false,
   expenses: [],
   updatingUserExpenses: false,
-  addingUserExpenses: false
+  addingUserExpenses: false,
+  deletingExpense: false
 };
 
 export default function(state = initializeState, action) {
@@ -172,6 +173,24 @@ export default function(state = initializeState, action) {
         ...state,
         error: action.payload,
         addingUserExpenses: false
+      };
+    case DELETE_EXPENSE_START:
+      return {
+        ...state,
+        error: "",
+        deletingExpense: true
+      };
+    case DELETE_EXPENSE_SUCCESS:
+      return {
+        ...state,
+        error: "",
+        deletingExpense: false
+      };
+    case DELETE_EXPENSE_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        deletingExpense: false
       };
     default:
       return state;

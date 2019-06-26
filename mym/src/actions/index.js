@@ -121,11 +121,12 @@ export const updateExpense = expense => dispatch => {
 }
 
 export const deleteExpense = expense => dispatch => {
+    console.log(expense)
     dispatch({ type: DELETE_EXPENSE_START })
-    axiosWithAuth()
-        .post("/expenses/new")
+    return axiosWithAuth()
+        .delete(`/expenses/delete/${expense.expenseid}`)
         .then(res => {
-            dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+            dispatch({ type: ADD_EXPENSE_SUCCESS })
         })
         .catch(err => {
             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
