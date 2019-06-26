@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { updateExpense, getUserExpenses } from '../actions';
 
 class Expense extends React.Component {
     state = {
         newExpense: {
+            id: this.props.expense.expenseid,
             expensename: this.props.expense.expensename,
             category: this.props.expense.category,
             amount: this.props.expense.amount
@@ -22,6 +24,12 @@ class Expense extends React.Component {
                 [e.target.name]: e.target.value
             }
         })
+    }
+
+    onUpdateExpense = () => {
+        this.props.updateExpense(this.state.newExpense)
+            .then(res => this.props.getUserExpenses())
+            .then(res => this.setState(prevState => ({ updating: !prevState.updating })))
     }
 
     render() {
@@ -43,7 +51,7 @@ class Expense extends React.Component {
                                 <label className="active" htmlFor="amount">Amount</label>
                                 <input required type="number" onChange={this.onInputChange} name="amount" value={this.state.newExpense.amount} id="amount"/>
                             </div>
-                            <button >update</button>
+                            <button onClick={this.onUpdateExpense}>update</button>
                             <button onClick={this.toggleUpdate}>cancel</button>
                         </div>) : 
                         (<div>
@@ -67,4 +75,4 @@ class Expense extends React.Component {
     }
 }
 
-export default connect(null, {})(Expense);
+export default connect(null, { updateExpense, getUserExpenses })(Expense);

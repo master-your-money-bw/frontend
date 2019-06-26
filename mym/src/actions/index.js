@@ -108,9 +108,22 @@ export const addExpense = expense => dispatch => {
 }
 
 export const updateExpense = expense => dispatch => {
+    console.log(expense)
     dispatch({ type: UPDATE_EXPENSE_START })
-    axiosWithAuth()
+    return axiosWithAuth()
         .put(`/expenses/update/${expense.id}`, expense)
+        .then(res => {
+            dispatch({ type: ADD_EXPENSE_SUCCESS })
+        })
+        .catch(err => {
+            dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
+        })
+}
+
+export const deleteExpense = expense => dispatch => {
+    dispatch({ type: DELETE_EXPENSE_START })
+    axiosWithAuth()
+        .post("/expenses/new")
         .then(res => {
             dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
         })
@@ -118,15 +131,3 @@ export const updateExpense = expense => dispatch => {
             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
         })
 }
-
-// export const deleteExpense = expense => dispatch => {
-//     dispatch({ type: DELETE_EXPENSE_START })
-//     axiosWithAuth()
-//         .post("/expenses/new")
-//         .then(res => {
-//             dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
-//         })
-//         .catch(err => {
-//             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
-//         })
-// }

@@ -146,7 +146,6 @@ export default function(state = initializeState, action) {
     case UPDATE_EXPENSE_SUCCESS:
       return {
         ...state,
-        expenses: action.payload,
         error: "",
         updatingUserExpenses: false
       };
