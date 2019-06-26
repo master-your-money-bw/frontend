@@ -4,6 +4,7 @@ import { fetchUser } from '../actions';
 import { connect } from 'react-redux';
 import Logout from './Logout';
 import Profile from './Profile';
+import OnTrack from './OnTrack';
 
 class Dashboard extends React.Component {
     componentDidMount() {
@@ -17,7 +18,7 @@ class Dashboard extends React.Component {
                 <h3>Overview</h3>
                 <ul>
                     <Link to="/dashboard/track"><li>Expense Tracker</li></Link>
-                    <li>On Track?</li>
+                    <OnTrack />
                 </ul>
                 <Profile />
             </div>
