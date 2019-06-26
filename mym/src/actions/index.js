@@ -87,7 +87,7 @@ export const createUser = user => dispatch => {
 
 export const getUserExpenses = () => dispatch => {
     dispatch({ type: GET_USER_EXPENSES_START });
-    axiosWithAuth()
+    return axiosWithAuth()
         .get("/expenses/all")
         .then(res =>{
             dispatch({ type: GET_USER_EXPENSES_SUCCESS, payload: res.data })
@@ -97,10 +97,10 @@ export const getUserExpenses = () => dispatch => {
 
 export const addExpense = expense => dispatch => {
     dispatch({ type: ADD_EXPENSE_START })
-    axiosWithAuth()
+    return axiosWithAuth()
         .post("/expenses/new", expense)
         .then(res => {
-            dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+            dispatch({ type: ADD_EXPENSE_SUCCESS })
         })
         .catch(err => {
             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
@@ -108,25 +108,27 @@ export const addExpense = expense => dispatch => {
 }
 
 export const updateExpense = expense => dispatch => {
+    console.log(expense)
     dispatch({ type: UPDATE_EXPENSE_START })
-    axiosWithAuth()
+    return axiosWithAuth()
         .put(`/expenses/update/${expense.id}`, expense)
         .then(res => {
-            dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
+            dispatch({ type: ADD_EXPENSE_SUCCESS })
         })
         .catch(err => {
             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
         })
 }
 
-// export const deleteExpense = expense => dispatch => {
-//     dispatch({ type: DELETE_EXPENSE_START })
-//     axiosWithAuth()
-//         .post("/expenses/new")
-//         .then(res => {
-//             dispatch({ type: ADD_EXPENSE_SUCCESS, payload: res.data})
-//         })
-//         .catch(err => {
-//             dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
-//         })
-// }
+export const deleteExpense = expense => dispatch => {
+    console.log(expense)
+    dispatch({ type: DELETE_EXPENSE_START })
+    return axiosWithAuth()
+        .delete(`/expenses/delete/${expense.expenseid}`)
+        .then(res => {
+            dispatch({ type: ADD_EXPENSE_SUCCESS })
+        })
+        .catch(err => {
+            dispatch({ type: ADD_EXPENSE_FAIL, payload: err})
+        })
+}

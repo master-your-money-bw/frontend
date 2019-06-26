@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { updateExpense, getUserExpenses, deleteExpense } from '../actions';
 
 class Expense extends React.Component {
     state = {
         newExpense: {
+            id: this.props.expense.expenseid,
             expensename: this.props.expense.expensename,
             category: this.props.expense.category,
             amount: this.props.expense.amount
@@ -22,6 +24,17 @@ class Expense extends React.Component {
                 [e.target.name]: e.target.value
             }
         })
+    }
+
+    onUpdateExpense = () => {
+        this.props.updateExpense(this.state.newExpense)
+            .then(res => this.props.getUserExpenses())
+            .then(res => this.setState(prevState => ({ updating: !prevState.updating })))
+    }
+
+    onDeleteExpense = () => {
+        this.props.deleteExpense(this.props.expense)
+            .then(res => this.props.getUserExpenses())
     }
 
     render() {
@@ -43,7 +56,7 @@ class Expense extends React.Component {
                                 <label className="active" htmlFor="amount">Amount</label>
                                 <input required type="number" onChange={this.onInputChange} name="amount" value={this.state.newExpense.amount} id="amount"/>
                             </div>
-                            <button >update</button>
+                            <button onClick={this.onUpdateExpense}>update</button>
                             <button onClick={this.toggleUpdate}>cancel</button>
                         </div>) : 
                         (<div>
@@ -52,12 +65,14 @@ class Expense extends React.Component {
                                 <p>Category: {this.props.expense.category}</p>
                                 <p>Amount: {this.props.expense.amount}</p>
                             </div>
-                            <div className="col">
-                                <button onClick={this.toggleUpdate}>update</button>
-                            </div>
-                            <div className="col">
-                                <button>delete</button>
-                            </div>
+                            {!this.props.hideButton &&(<div>
+                                <div className="col">
+                                    <button onClick={this.toggleUpdate}>update</button>
+                                </div>
+                                <div className="col">
+                                    <button onClick={this.onDeleteExpense}>delete</button>
+                                </div>
+                            </div>)}
                         </div>
                         )}
                     </div>
@@ -67,4 +82,4 @@ class Expense extends React.Component {
     }
 }
 
-export default connect(null, {})(Expense);
+export default connect(null, { updateExpense, getUserExpenses, deleteExpense })(Expense);
