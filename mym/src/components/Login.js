@@ -28,7 +28,7 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.login(this.state.credentials)
             .then(res => this.props.fetchUser(localStorage.getItem("token")))
-            .then(res => this.props.age ? this.props.history.push("/onboarding") : this.props.history.push("/dashboard"))
+            .then(res => this.props.history.push("/dashboard"))
     }
 
     render() {
@@ -62,12 +62,4 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        user: {
-            age: state.user.age
-        }
-    }
-}
-
-export default connect(mapStateToProps, { login, fetchUser })(Login);
+export default connect(null, { login, fetchUser })(Login);

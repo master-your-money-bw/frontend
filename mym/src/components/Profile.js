@@ -10,7 +10,12 @@ const Profile = (props) => {
                 <p>Age: {props.user.age}</p>
                 <p>Education: {props.user.education}</p>
                 <p>Location: {props.user.location}</p>
-                <p>Income: {props.user.income}</p>
+                <p>Income: ${props.user.income}</p>
+                <p>Transportation Costs: ${props.user.transportation}</p>
+                <p>Food Costs: ${props.user.food}</p>
+                <p>Clothing Costs: ${props.user.clothing}</p>
+                <p>Bills: ${props.user.bills}</p>
+                <p>Housing: ${props.user.housing}</p>
             </div>
         </div>
     )
