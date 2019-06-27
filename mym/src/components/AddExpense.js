@@ -47,7 +47,7 @@ class AddExpense extends React.Component {
       <div className="container card center-align" style={margin}>
         <div className="card-content">
           <form onSubmit={e => this.onSubmitForm(e)}>
-            <h3>Add Expense</h3>
+            <h5>Add Expense</h5>
             <div>
               {/* <div className="input-field">
                 <label className="active" htmlFor="date">

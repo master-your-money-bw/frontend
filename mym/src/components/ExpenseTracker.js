@@ -4,11 +4,11 @@ import AddExpense from './AddExpense';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserExpenses } from '../actions';
+import DashboardTab from './DashboardTab';
 
 const margin = {
     marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: "20px"
+    marginRight: "auto"
 }
 class ExpenseTracker extends React.Component {
     componentDidMount() {
@@ -18,13 +18,16 @@ class ExpenseTracker extends React.Component {
     render() {
         return (
             <div>
-                <Link to="/dashboard">
-                    <button className="btn waves-effect waves-light" style={margin}>Back to Overview
-                        <i className="material-icons left">arrow_back</i>
-                    </button>
-                </Link>
-                <AddExpense />
-                <ExpenseList />
+                <DashboardTab />
+                <div>
+                    <Link to="/dashboard">
+                        <button className="btn waves-effect waves-light" style={margin}>Back to Overview
+                            <i className="material-icons left">arrow_back</i>
+                        </button>
+                    </Link>
+                    <AddExpense />
+                    <ExpenseList />
+                </div>
             </div>
         )
     }

@@ -38,7 +38,7 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div className="card container col s4 offset-s4">
+            <div className="card container col s4">
                 <div className="card-content">
                     <span className="card-title">Your Account</span>
                     {this.state.isUpdating ? 
@@ -89,18 +89,28 @@ class Profile extends React.Component {
                                 </div>
                             </div>
                         </form>) : 
-                        (<div>
-                            <button onClick={this.onToggleUpdate}>update</button>
-                            <p>Username: {this.props.user.username}</p>
-                            <p>Age: {this.props.user.age}</p>
-                            <p>Education: {this.props.user.education}</p>
-                            <p>Location: {this.props.user.location}</p>
-                            <p>Income: ${this.props.user.income}</p>
-                            <p>Transportation Costs: ${this.props.user.transportation}</p>
-                            <p>Food Costs: ${this.props.user.food}</p>
-                            <p>Clothing Costs: ${this.props.user.clothing}</p>
-                            <p>Bills: ${this.props.user.bills}</p>
-                            <p>Housing: ${this.props.user.housing}</p>
+                        (<div className="row">
+                            <div>
+                                <div className="col s6">
+                                    <h6>Profile</h6>
+                                    <div className="divider"></div>
+                                    <p>Username: {this.props.user.username}</p>
+                                    <p>Age: {this.props.user.age}</p>
+                                    <p>Education: {this.props.user.education}</p>
+                                    <p>Location: {this.props.user.location}</p>
+                                </div>
+                                <div className="col s6">
+                                    <h6>Money Spent</h6>
+                                    <div className="divider"></div>
+                                    <p>Income: ${this.props.user.income}</p>
+                                    <p>Transportation: ${this.props.user.transportation}</p>
+                                    <p>Food: ${this.props.user.food}</p>
+                                    <p>Clothing: ${this.props.user.clothing}</p>
+                                    <p>Bills: ${this.props.user.bills}</p>
+                                    <p>Housing: ${this.props.user.housing}</p>
+                                </div>
+                            </div>
+                            <button onClick={this.onToggleUpdate} className="waves-effect waves-light btn-small">update</button>
                         </div>)}
                 </div>
             </div>
