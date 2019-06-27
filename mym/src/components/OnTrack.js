@@ -6,7 +6,7 @@ const OnTrack = () => {
     const [image, setImage] = useState('')
     const [color, setColor] = useState({})
 
-    const score = 60;
+    const score = 49;
 
     useEffect(() => {
         if (score > 70) {
