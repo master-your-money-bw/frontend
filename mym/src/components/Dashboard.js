@@ -1,26 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { fetchUser } from '../actions';
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import OnTrack from './OnTrack';
 import LatestExpenses from './LatestExpenses';
+import DashboardTab from './DashboardTab';
 
 class Dashboard extends React.Component {
     componentDidMount() {
         this.props.fetchUser(localStorage.getItem("token"))
+            .then(res => {
+                if (!this.props.user.location) this.props.history.push("/onboarding")
+            })
     }
 
     render() {
         return (
             <div>
-                <h3>Overview</h3>
-                <ul>
-                    <li><Link to="/dashboard/track" className="col s4">Expense Tracker</Link></li>
-                    <LatestExpenses />
-                    <OnTrack />
-                </ul>
+                <DashboardTab />
+                <LatestExpenses />
                 <div className="row">
+                    <OnTrack />
                     <Profile />
                 </div>
             </div>
@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.token
+        user: state.user
     }
 }
 

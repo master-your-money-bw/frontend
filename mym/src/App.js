@@ -7,7 +7,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { connect } from 'react-redux'
 import { fetchUser } from './actions'
 import { Route } from 'react-router-dom';
-// import './App.css';
+import './App.css';
 
 class App extends React.Component {
   componentDidMount() {

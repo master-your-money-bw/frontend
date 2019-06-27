@@ -33,46 +33,61 @@ class OnboardingForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.profile.education)
     return (
-      <form onSubmit={this.onSubmitForm}>
+      <form onSubmit={this.onSubmitForm} className="container row">
         <h2>Profile</h2>
-        <div>
-          <p>Age range:</p>
-          <input required name="age" value={this.state.profile.age} onChange={this.onInputChange} type="number"/>
+        <div className="col s6">
+          <div>
+            <label htmlFor="age" className="active">Age</label>
+            <input required name="age" value={this.state.profile.age} onChange={this.onInputChange} type="number" id="age"/>
+          </div>
+          <div>
+            <label htmlFor="location" className="active">Location</label>
+            <input required name="location" value={this.state.profile.location} onChange={this.onInputChange} type="text" id="location"/>
+          </div>
+          <div>
+            <label htmlFor="education" className="active">Education</label>
+            <select className="form-control dropdown" id="education" name="education" style={{ display: "block" }} onChange={this.onInputChange}>
+              <option defaultValue="" disabled="disabled">-- select one --</option>
+              <option value="No formal education">No formal education</option>
+              <option value="Primary education">Primary education</option>
+              <option value="Secondary education">Secondary education or high school</option>
+              <option value="GED">GED</option>
+              <option value="Vocational qualification">Vocational qualification</option>
+              <option value="Bachelor's degree">Bachelor's degree</option>
+              <option value="Master's degree">Master's degree</option>
+              <option value="Doctorate or higher">Doctorate or higher</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <p>Location:</p>
-          <input required name="location" value={this.state.profile.location} onChange={this.onInputChange} type="text"/>
+        <div className="col s6">
+          <div>
+            <label htmlFor="income" className="active">Income</label>
+            <input required name="income" value={this.state.profile.income} onChange={this.onInputChange} type="number" id="income"/>
+          </div>
+          <div>
+            <label htmlFor="transportation" className="active">Transportation</label>
+            <input required name="transportation" value={this.state.profile.transportation} onChange={this.onInputChange} type="number" id="transportation"/>
+          </div>
+          <div>
+            <label htmlFor="food" className="active">Food</label>
+            <input required name="food" value={this.state.profile.food} onChange={this.onInputChange} type="number" id="food"/>
+          </div>
+          <div>
+            <label htmlFor="clothing" className="active">Clothing</label>
+            <input required name="clothing" value={this.state.profile.clothing} onChange={this.onInputChange} type="number" id="clothing"/>
+          </div>
+          <div>
+            <label htmlFor="bills" className="active">Bills</label>
+            <input required name="bills" value={this.state.profile.bills} onChange={this.onInputChange} type="number" id="bills"/>
+          </div>
+          <div>
+            <label htmlFor="housing" className="active">Housing</label>
+            <input required name="housing" value={this.state.profile.housing} onChange={this.onInputChange} type="number" id="housing"/>
+          </div>
         </div>
-        <div>
-          <p>Current income bracket/salary per year/income earned per month:</p>
-          <input required name="income" value={this.state.profile.income} onChange={this.onInputChange} type="number"/>
-        </div>
-        <div>
-          <p>Level of Education:</p>
-          <input required name="education" value={this.state.profile.education} onChange={this.onInputChange} type="text"/>
-        </div>
-        <div>
-          <p>Transportation costs (e.g. car loan, insurance, fuel, etc):</p>
-          <input required name="transportation" value={this.state.profile.transportation} onChange={this.onInputChange} type="number"/>
-        </div>
-        <div>
-          <p>Food costs:</p>
-          <input required name="food" value={this.state.profile.food} onChange={this.onInputChange} type="number"/>
-        </div>
-        <div>
-          <p>Clothing:</p>
-          <input required name="clothing" value={this.state.profile.clothing} onChange={this.onInputChange} type="number"/>
-        </div>
-        <div>
-          <p>Bills:</p>
-          <input required name="bills" value={this.state.profile.bills} onChange={this.onInputChange} type="number"/>
-        </div>
-        <div>
-          <p>Housing:</p>
-          <input required name="housing" value={this.state.profile.housing} onChange={this.onInputChange} type="number"/>
-        </div>
-        <button>Next</button>
+        <button className="waves-effect waves-light btn-small">Next</button>
       </form>
     );
   }
