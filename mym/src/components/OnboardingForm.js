@@ -33,6 +33,7 @@ class OnboardingForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.profile.education)
     return (
       <form onSubmit={this.onSubmitForm} className="container row">
         <h2>Profile</h2>
@@ -47,7 +48,17 @@ class OnboardingForm extends React.Component {
           </div>
           <div>
             <label htmlFor="education" className="active">Education</label>
-            <input required name="education" value={this.state.profile.education} onChange={this.onInputChange} type="text" id="education"/>
+            <select className="form-control dropdown" id="education" name="education" style={{ display: "block" }} onChange={this.onInputChange}>
+              <option defaultValue="" disabled="disabled">-- select one --</option>
+              <option value="No formal education">No formal education</option>
+              <option value="Primary education">Primary education</option>
+              <option value="Secondary education">Secondary education or high school</option>
+              <option value="GED">GED</option>
+              <option value="Vocational qualification">Vocational qualification</option>
+              <option value="Bachelor's degree">Bachelor's degree</option>
+              <option value="Master's degree">Master's degree</option>
+              <option value="Doctorate or higher">Doctorate or higher</option>
+            </select>
           </div>
         </div>
         <div className="col s6">

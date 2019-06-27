@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import { addExpense, getUserExpenses } from "../actions";
 
 const margin = {
-  marginLeft: "auto",
-  marginRight: "auto",
-  marginTop: "20px",
-  marginBottom: "20px"
+  margin: "auto"
 }
 
 class AddExpense extends React.Component {
@@ -92,14 +89,14 @@ class AddExpense extends React.Component {
                 <label className="active" htmlFor="category">
                   Category
                 </label>
-                <input
-                  required
-                  type="text"
-                  onChange={this.onInputChange}
-                  name="category"
-                  value={this.state.expense.category}
-                  id="category"
-                />
+                <select className="form-control dropdown" id="category" name="category" style={{ display: "block" }} onChange={this.onInputChange}>
+                  <option defaultValue="" disabled="disabled">-- select one --</option>
+                  <option value="Transportation">Transportation</option>
+                  <option value="Food">Food</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Bills">Bills</option>
+                  <option value="Housing">Housing</option>
+                </select>
               </div>
             </div>
             <button className="btn waves-effect waves-light">
