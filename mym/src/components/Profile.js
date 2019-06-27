@@ -2,10 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateProfile } from '../actions';
 
-const margin = {
-    margin: "auto"
-}
-
 class Profile extends React.Component {
     state = {
         isUpdating: false,

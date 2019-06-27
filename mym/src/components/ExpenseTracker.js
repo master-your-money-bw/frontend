@@ -1,15 +1,16 @@
 import React from 'react';
 import ExpenseList from './ExpenseList';
 import AddExpense from './AddExpense';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserExpenses } from '../actions';
 import DashboardTab from './DashboardTab';
+import { Link } from 'react-router-dom';
 
 const margin = {
     marginLeft: "auto",
     marginRight: "auto"
 }
+
 class ExpenseTracker extends React.Component {
     componentDidMount() {
         this.props.getUserExpenses()
@@ -19,15 +20,15 @@ class ExpenseTracker extends React.Component {
         return (
             <div>
                 <DashboardTab />
-                <div>
-                    <Link to="/dashboard">
+                <div className="row valign-wrapper">
+                    <Link to="/dashboard" className="col s3">
                         <button className="btn waves-effect waves-light" style={margin}>Back to Overview
                             <i className="material-icons left">arrow_back</i>
                         </button>
                     </Link>
                     <AddExpense />
-                    <ExpenseList />
                 </div>
+                <ExpenseList />
             </div>
         )
     }

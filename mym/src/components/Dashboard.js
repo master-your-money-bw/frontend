@@ -9,6 +9,9 @@ import DashboardTab from './DashboardTab';
 class Dashboard extends React.Component {
     componentDidMount() {
         this.props.fetchUser(localStorage.getItem("token"))
+            .then(res => {
+                if (!this.props.user.location) this.props.history.push("/onboarding")
+            })
     }
 
     render() {
@@ -27,7 +30,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.token
+        user: state.user
     }
 }
 
