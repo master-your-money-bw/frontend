@@ -28,7 +28,7 @@ import {
 
 const initializeState = {
   user: "",
-  logginIn: false,
+  loggingIn: false,
   loggedIn: false,
   fetchingProfile: false,
   updatingProfile: false,

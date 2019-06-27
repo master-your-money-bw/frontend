@@ -4,7 +4,7 @@ import Expense from './Expense';
 
 const ExpenseList = (props) => {
     return (
-        <div>{props.expenses.reverse().map(expense => <Expense expense={expense} key={expense.expenseid}/>)}</div>
+        <ul className="collection">{props.expenses.reverse().map(expense => <Expense expense={expense} key={expense.expenseid}/>)}</ul>
     )
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { fetchUser } from '../actions';
 import { connect } from 'react-redux';
-import Logout from './Logout';
 import Profile from './Profile';
 import OnTrack from './OnTrack';
 import LatestExpenses from './LatestExpenses';
@@ -15,10 +14,9 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                <Logout />
                 <h3>Overview</h3>
                 <ul>
-                    <Link to="/dashboard/track"><li>Expense Tracker</li></Link>
+                    <li><Link to="/dashboard/track" className="col s4">Expense Tracker</Link></li>
                     <LatestExpenses />
                     <OnTrack />
                 </ul>

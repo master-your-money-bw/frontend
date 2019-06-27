@@ -2,6 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { addExpense, getUserExpenses } from "../actions";
 
+const margin = {
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop: "20px",
+  marginBottom: "20px"
+}
+
 class AddExpense extends React.Component {
   state = {
     expense: {
@@ -37,7 +44,7 @@ class AddExpense extends React.Component {
 
   render() {
     return (
-      <div className="card">
+      <div className="container card center-align" style={margin}>
         <div className="card-content">
           <form onSubmit={e => this.onSubmitForm(e)}>
             <h3>Add Expense</h3>
