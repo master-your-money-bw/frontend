@@ -2,6 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateProfile } from '../actions';
 
+const margin = {
+    margin: "auto"
+}
+
 class Profile extends React.Component {
     state = {
         isUpdating: false,
@@ -34,49 +38,55 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div className="card">
+            <div className="card container col s4 offset-s4">
                 <div className="card-content">
                     <span className="card-title">Your Account</span>
                     {this.state.isUpdating ? 
-                        (<form onSubmit={this.onSubmitForm}>
-                            <button>update</button>
-                            <button onClick={this.onToggleUpdate}>cancel</button>
-                            <p>Username: {this.props.user.username}</p>
-                            <div className="input-field">
+                        (<form onSubmit={this.onSubmitForm} className="row">
+                            <h6 className="card-content">Username: {this.props.user.username}</h6>
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="age">Age</label>
                                 <input required type="number" onChange={this.onInputChange} name="age" value={this.state.updatedUser.age} id="age"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="education">Education</label>
                                 <input required type="text" onChange={this.onInputChange} name="education" value={this.state.updatedUser.education} id="education"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="location">Location</label>
                                 <input required type="text" onChange={this.onInputChange} name="location" value={this.state.updatedUser.location} id="location"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="income">Income</label>
                                 <input required type="number" onChange={this.onInputChange} name="income" value={this.state.updatedUser.income} id="income"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="transportation">Transportation</label>
                                 <input required type="number" onChange={this.onInputChange} name="transportation" value={this.state.updatedUser.transportation} id="transportation"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="food">Food</label>
                                 <input required type="number" onChange={this.onInputChange} name="food" value={this.state.updatedUser.food} id="food"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="clothing">Clothing</label>
                                 <input required type="number" onChange={this.onInputChange} name="clothing" value={this.state.updatedUser.clothing} id="clothing"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="bills">Bills</label>
                                 <input required type="number" onChange={this.onInputChange} name="bills" value={this.state.updatedUser.bills} id="bills"/>
                             </div>
-                            <div className="input-field">
+                            <div className="input-field col s4">
                                 <label className="active" htmlFor="housing">Housing</label>
                                 <input required type="number" onChange={this.onInputChange} name="housing" value={this.state.updatedUser.housing} id="housing"/>
+                            </div>
+                            <div className="right-align">
+                                <div className="col s4 offset-s4">
+                                    <button className="waves-effect waves-light btn-small">update</button>
+                                </div>
+                                <div className="col s4">
+                                    <button onClick={this.onToggleUpdate} className="waves-effect waves-light btn-small">cancel</button>
+                                </div>
                             </div>
                         </form>) : 
                         (<div>

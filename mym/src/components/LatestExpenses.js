@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { getUserExpenses } from "../actions";
 import Expense from "./Expense";
 
+const bold = {
+  fontWeight: "bold"
+}
 class LatestExpenses extends React.Component {
   componentDidMount() {
     this.props.getUserExpenses();
@@ -10,19 +13,21 @@ class LatestExpenses extends React.Component {
 
   render() {
     return (
-      <div>
-        <table className="centered">
-          <tr>
-            <th>Last 5 Expenses</th>
-          </tr>
+      <ul className="collection container">
+            <li className="collection-item">Last 5 Expenses</li>
+            <li className="collection-item row">
+                <div className="col s3" style={bold}>Expense</div>
+                <div className="col s3" style={bold}>Amount</div>
+                <div className="col s3" style={bold}>Category</div>
+            </li>
+
           {this.props.expenses
             .reverse()
             .slice(0, 5)
             .map(expense => (
               <Expense expense={expense} key={expense.expenseid} hideButton />
             ))}
-        </table>
-      </div>
+      </ul>
     );
   }
 }

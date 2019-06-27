@@ -20,7 +20,9 @@ class Dashboard extends React.Component {
                     <LatestExpenses />
                     <OnTrack />
                 </ul>
-                <Profile />
+                <div className="row">
+                    <Profile />
+                </div>
             </div>
         )
     }

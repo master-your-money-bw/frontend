@@ -26,7 +26,8 @@ class Expense extends React.Component {
     });
   };
 
-  onUpdateExpense = () => {
+  onUpdateExpense = e => {
+      e.preventDefault()
     this.props
       .updateExpense(this.state.newExpense)
       .then(res => this.props.getUserExpenses())
@@ -45,7 +46,7 @@ class Expense extends React.Component {
     return (
       <li className="collection-item row">
         {this.state.updating ? (
-          <div className="valign-wrapper">
+          <form className="valign-wrapper" onSubmit={e => this.onUpdateExpense(e)}>
             <div className="input-field col s3">
               <label className="active" htmlFor="expensename">
                 Expense Name
@@ -57,19 +58,6 @@ class Expense extends React.Component {
                 name="expensename"
                 value={this.state.newExpense.expensename}
                 id="expensename"
-              />
-            </div>
-            <div className="input-field col s3">
-              <label className="active" htmlFor="category">
-                Category
-              </label>
-              <input
-                required
-                type="text"
-                onChange={this.onInputChange}
-                name="category"
-                value={this.state.newExpense.category}
-                id="category"
               />
             </div>
             <div className="input-field col s3">
@@ -85,21 +73,34 @@ class Expense extends React.Component {
                 id="amount"
               />
             </div>
+            <div className="input-field col s3">
+              <label className="active" htmlFor="category">
+                Category
+              </label>
+              <input
+                required
+                type="text"
+                onChange={this.onInputChange}
+                name="category"
+                value={this.state.newExpense.category}
+                id="category"
+              />
+            </div>
             <div className="col s3">
                 <div className="col">
-                    <button onClick={this.onUpdateExpense} className="waves-effect waves-light btn-small">update</button>
+                    <button onClick={e => this.onUpdateExpense(e)} className="waves-effect waves-light btn-small">update</button>
                 </div>
                 <div className="col">
                     <button onClick={this.toggleUpdate} className="waves-effect waves-light btn-small">cancel</button>
                 </div>
             </div>
-          </div>
+          </form>
         ) : (
           <div className="valign-wrapper">
-            <div className="col s3">Name: {this.props.expense.expensename}</div>
-            <div className="col s3">Amount: {this.props.expense.amount}</div>
-            <div className="col s3">Category: {this.props.expense.category}</div>
-            {!this.props.hideButton && (
+            <div className="col s3">{this.props.expense.expensename}</div>
+            <div className="col s3">{this.props.expense.amount}</div>
+            <div className="col s3">{this.props.expense.category}</div>
+            {!this.props.hideButton ? (
               <div className="col s3">
                 <div className="col">
                   <button onClick={this.toggleUpdate} className="waves-effect waves-light btn-small">update</button>
@@ -108,6 +109,8 @@ class Expense extends React.Component {
                   <button onClick={this.onDeleteExpense} className="waves-effect waves-light btn-small">delete</button>
                 </div>
               </div>
+            ) : (
+              <div className="col s3"></div>
             )}
           </div>
         )}
