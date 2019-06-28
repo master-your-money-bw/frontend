@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createUser, login } from "../actions";
-import { Link } from 'react-router-dom';
+import { createUser, login, fetchUser } from "../actions";
+import { Link } from "react-router-dom";
 
 class Register extends React.Component {
   state = {
@@ -10,15 +10,18 @@ class Register extends React.Component {
       password: "",
       verifyPassword: ""
     },
-    error: ''
+    error: ""
   };
 
   componentDidMount() {
-      this.setState({ error: '' })
+    this.setState({ error: "" });
+    this.props.fetchUser(localStorage.getItem("token")).then(res => {
+      if (this.props.user.age) this.props.history.push("/dashboard");
+    });
   }
 
   componentWillUnmount() {
-      this.setState({ error: '' })
+    this.setState({ error: "" });
   }
 
   onInputChange = e => {
@@ -35,7 +38,9 @@ class Register extends React.Component {
     this.props
       .createUser(this.state.credentials)
       .then(res =>
-        !this.props.error ? this.props.login(this.state.credentials) : this.setState({ error: this.props.error })
+        !this.props.error
+          ? this.props.login(this.state.credentials)
+          : this.setState({ error: this.props.error })
       )
       .then(res => {
         !this.props.error && this.props.history.push("/onboarding");
@@ -49,7 +54,14 @@ class Register extends React.Component {
           <div className="card white">
             <div className="card-content">
               <span className="card-title">Register</span>
-              {!this.state.error ? <div><br /><br /></div> : <span style={{ color: "red" }}>{this.state.error}</span>}
+              {!this.state.error ? (
+                <div>
+                  <br />
+                  <br />
+                </div>
+              ) : (
+                <span style={{ color: "red" }}>{this.state.error}</span>
+              )}
               <form onSubmit={this.onSubmitLogin}>
                 <div className="input-field">
                   <input
@@ -93,7 +105,7 @@ class Register extends React.Component {
                   this.state.credentials.verifyPassword ? (
                     <span style={{ color: "red" }}>Passwords don't match</span>
                   ) : (
-                    <div style={{ height: "21px" }}></div>
+                    <div style={{ height: "21px" }} />
                   )}
                 </div>
                 <button className="btn waves-effect waves-light">
@@ -102,7 +114,9 @@ class Register extends React.Component {
                 </button>
               </form>
               <br />
-              <Link to="/login"><span>Already have an account? Click here.</span></Link>
+              <Link to="/login">
+                <span>Already have an account? Click here.</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -119,5 +133,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createUser, login }
+  { createUser, login, fetchUser }
 )(Register);
