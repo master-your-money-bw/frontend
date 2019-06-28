@@ -108,7 +108,7 @@ class Register extends React.Component {
                     <div style={{ height: "21px" }} />
                   )}
                 </div>
-                <button className="btn waves-effect waves-light">
+                <button className="btn teal accent-3">
                   Register
                   <i className="material-icons right">send</i>
                 </button>
@@ -127,7 +127,10 @@ class Register extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.error
+    error: state.error,
+    user: {
+      age: state.user.age
+    }
   };
 };
 
