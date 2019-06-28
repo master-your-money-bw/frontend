@@ -4,7 +4,7 @@ import { addExpense, getUserExpenses } from "../actions";
 
 const margin = {
   margin: "auto"
-}
+};
 
 class AddExpense extends React.Component {
   state = {
@@ -29,14 +29,19 @@ class AddExpense extends React.Component {
     e.preventDefault();
     // add to backend data
     // exit out of modal
-    this.props.addExpense(this.state.expense)
-        .then(res => this.props.getUserExpenses())
-        .then(res => this.setState({ expense: {
-            date: '',
-            expensename: '',
-            amount: '',
-            category: ''
-        }}))
+    this.props
+      .addExpense(this.state.expense)
+      .then(res => this.props.getUserExpenses())
+      .then(res =>
+        this.setState({
+          expense: {
+            date: "",
+            expensename: "",
+            amount: "",
+            category: ""
+          }
+        })
+      );
   };
 
   render() {
@@ -89,8 +94,16 @@ class AddExpense extends React.Component {
                 <label className="active" htmlFor="category">
                   Category
                 </label>
-                <select className="form-control dropdown" id="category" name="category" style={{ display: "block" }} onChange={this.onInputChange}>
-                  <option defaultValue="" disabled="disabled">-- select one --</option>
+                <select
+                  className="form-control dropdown"
+                  id="category"
+                  name="category"
+                  style={{ display: "block" }}
+                  onChange={this.onInputChange}
+                >
+                  <option defaultValue="" disabled="disabled">
+                    -- select one --
+                  </option>
                   <option value="Transportation">Transportation</option>
                   <option value="Food">Food</option>
                   <option value="Clothing">Clothing</option>
@@ -99,7 +112,7 @@ class AddExpense extends React.Component {
                 </select>
               </div>
             </div>
-            <button className="btn waves-effect waves-light">
+            <button className="btn teal accent-3">
               Add Expense
               <i className="material-icons right">send</i>
             </button>

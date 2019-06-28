@@ -27,7 +27,7 @@ class Expense extends React.Component {
   };
 
   onUpdateExpense = e => {
-      e.preventDefault()
+    e.preventDefault();
     this.props
       .updateExpense(this.state.newExpense)
       .then(res => this.props.getUserExpenses())
@@ -46,7 +46,10 @@ class Expense extends React.Component {
     return (
       <li className="collection-item row">
         {this.state.updating ? (
-          <form className="valign-wrapper" onSubmit={e => this.onUpdateExpense(e)}>
+          <form
+            className="valign-wrapper"
+            onSubmit={e => this.onUpdateExpense(e)}
+          >
             <div className="input-field col s3">
               <label className="active" htmlFor="expensename">
                 Expense Name
@@ -77,22 +80,39 @@ class Expense extends React.Component {
               <label className="active" htmlFor="category">
                 Category
               </label>
-              <select className="form-control dropdown" id="category" name="category" style={{ display: "block" }} onChange={this.onInputChange}>
-                  <option defaultValue="" disabled="disabled">-- select one --</option>
-                  <option value="Transportation">Transportation</option>
-                  <option value="Food">Food</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Bills">Bills</option>
-                  <option value="Housing">Housing</option>
-                </select>
+              <select
+                className="form-control dropdown"
+                id="category"
+                name="category"
+                style={{ display: "block" }}
+                onChange={this.onInputChange}
+              >
+                <option defaultValue="" disabled="disabled">
+                  -- select one --
+                </option>
+                <option value="Transportation">Transportation</option>
+                <option value="Food">Food</option>
+                <option value="Bills">Bills</option>
+                <option value="Housing">Housing</option>
+              </select>
             </div>
             <div className="col s3">
-                <div className="col">
-                    <button onClick={e => this.onUpdateExpense(e)} className="waves-effect waves-light btn-small">update</button>
-                </div>
-                <div className="col">
-                    <button onClick={this.toggleUpdate} className="waves-effect waves-light btn-small">cancel</button>
-                </div>
+              <div className="col">
+                <button
+                  onClick={e => this.onUpdateExpense(e)}
+                  className="teal accent-3 btn-small"
+                >
+                  update
+                </button>
+              </div>
+              <div className="col">
+                <button
+                  onClick={this.toggleUpdate}
+                  className="teal accent-3 btn-small"
+                >
+                  cancel
+                </button>
+              </div>
             </div>
           </form>
         ) : (
@@ -103,14 +123,24 @@ class Expense extends React.Component {
             {!this.props.hideButton ? (
               <div className="col s3">
                 <div className="col">
-                  <button onClick={this.toggleUpdate} className="waves-effect waves-light btn-small">update</button>
+                  <button
+                    onClick={this.toggleUpdate}
+                    className="teal accent-3 btn-small"
+                  >
+                    update
+                  </button>
                 </div>
                 <div className="col">
-                  <button onClick={this.onDeleteExpense} className="waves-effect waves-light btn-small">delete</button>
+                  <button
+                    onClick={this.onDeleteExpense}
+                    className="teal accent-3 btn-small"
+                  >
+                    delete
+                  </button>
                 </div>
               </div>
             ) : (
-              <div className="col s3"></div>
+              <div className="col s3" />
             )}
           </div>
         )}
